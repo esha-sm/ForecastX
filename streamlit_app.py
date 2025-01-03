@@ -4,6 +4,7 @@ from statsmodels.tsa.arima.model import ARIMA
 import matplotlib.pyplot as plt
 import seaborn as sns
 import plotly.express as px
+import plotly.graph_objects as go
 
 try:
     df = pd.read_csv('./Random_Sales_Dataset.csv')
@@ -86,24 +87,23 @@ except Exception as e:
 
 try:
     st.markdown("**Boxplot of Sales by Product**")
-    fig, ax = plt.subplots()
-    sns.boxplot(x='Product', y='Sales', data=df, palette="husl", ax=ax)
-    ax.set_xlabel("Product")
-    ax.set_ylabel("Sales")
-    st.pyplot(fig)
+    fig = px.box(df, x='Product', y='Sales', color='Product', title='Boxplot of Sales by Product')
+    fig.update_layout(
+        xaxis_title='Product',
+        yaxis_title='Sales'
+    )
+    st.plotly_chart(fig)
 except Exception as e:
     st.error(f"An error occurred while displaying the boxplot: {str(e)}")
 
 try:
     st.markdown("**Total Sales by Region**")
     total_sales_by_region = df.groupby('Region')['Sales'].sum().reset_index()
-    fig, ax = plt.subplots()
-    sns.barplot(x='Region', y='Sales', data=total_sales_by_region, palette="muted", ax=ax)
-    ax.set_title("Total Sales by Region", fontsize=16)
-    ax.set_xlabel("Region", fontsize=14)
-    ax.set_ylabel("Total Sales", fontsize=14)
-    ax.grid(False)
-    sns.despine()
-    st.pyplot(fig)
+    fig = px.bar(total_sales_by_region, x='Region', y='Sales', color='Region', title='Total Sales by Region')
+    fig.update_layout(
+        xaxis_title='Region',
+        yaxis_title='Total Sales'
+    )
+    st.plotly_chart(fig)
 except Exception as e:
     st.error(f"An error occurred while displaying total sales by region: {str(e)}")
