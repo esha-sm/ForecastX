@@ -5,11 +5,22 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import plotly.express as px
 
-try:
-    df = pd.read_csv('./Random_Sales_Dataset.csv')
-    st.success("Data loaded successfully!")
-except Exception as e:
-    st.error(f"An error occurred while loading the data: {str(e)}")
+st.title("Sales Forecasting App")
+st.write("This app forecasts sales using the ARIMA model.")
+st.write("You can predict sales for a minimum of 1 day and a maximum of 365 days.")
+
+# File uploader for user to upload their own data
+uploaded_file = st.file_uploader("Upload your CSV file", type=["csv"])
+
+if uploaded_file is not None:
+    try:
+        df = pd.read_csv(uploaded_file)
+        st.success("Data loaded successfully!")
+    except Exception as e:
+        st.error(f"An error occurred while loading the data: {str(e)}")
+else:
+    st.info("Please upload a CSV file to proceed.")
+    st.stop()
 
 try:
     df['Date'] = pd.to_datetime(df['Date'])
@@ -24,9 +35,6 @@ try:
 except Exception as e:
     st.error(f"An error occurred while fitting the ARIMA model: {str(e)}")
 
-st.title("Sales Forecasting App")
-st.write("This app forecasts sales using the ARIMA model.")
-st.write("You can predict sales for a minimum of 1 day and a maximum of 365 days.")
 st.markdown(f"<p style='font-size:20px; color:blue;'>Historical data range: {df['Date'].min().date()} to {df['Date'].max().date()}</p>", unsafe_allow_html=True)
 
 days = st.number_input("Enter number of days to forecast:", min_value=1, max_value=365, value=30)
@@ -69,7 +77,8 @@ if st.button("Generate Forecast"):
         )
         fig.update_layout(
             xaxis_title='Date',
-            yaxis_title='Sales'
+            yaxis_title='Sales',
+            template='plotly_white'
         )
         st.plotly_chart(fig)
     except Exception as e:
@@ -89,7 +98,8 @@ try:
     fig = px.box(df, x='Product', y='Sales', color='Product')
     fig.update_layout(
         xaxis_title='Product',
-        yaxis_title='Sales'
+        yaxis_title='Sales',
+        template='plotly_white'
     )
     st.plotly_chart(fig)
 except Exception as e:
@@ -101,7 +111,8 @@ try:
     fig = px.bar(total_sales_by_region, x='Region', y='Sales', color='Region')
     fig.update_layout(
         xaxis_title='Region',
-        yaxis_title='Total Sales'
+        yaxis_title='Total Sales',
+        template='plotly_white'
     )
     st.plotly_chart(fig)
 except Exception as e:
