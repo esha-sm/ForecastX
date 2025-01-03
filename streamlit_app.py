@@ -4,25 +4,22 @@ from statsmodels.tsa.arima.model import ARIMA
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-
-file_path = '/Users/esha/project/Random_Sales_Dataset.csv'  
-df = pd.read_csv(file_path)
-
+try:
+    df = pd.read_csv('./Random_Sales_Dataset.csv')
+    st.success("Data loaded successfully!")
+except Exception as e:
+    st.error(f"An error occurred: {str(e)}")
 
 df['Date'] = pd.to_datetime(df['Date'])
 
-
-model = ARIMA(df['Sales'], order=(5,1,0))  
+model = ARIMA(df['Sales'], order=(5,1,0))
 model_fit = model.fit()
-
 
 st.title("Sales Forecasting App")
 
 st.write("This app forecasts sales using the ARIMA model.")
 
-
 st.write("You can predict sales for a minimum of 1 day and a maximum of 365 days.")
-
 
 st.markdown(f"<p style='font-size:20px; color:blue;'>Historical data range: {df['Date'].min().date()} to {df['Date'].max().date()}</p>", unsafe_allow_html=True)
 
