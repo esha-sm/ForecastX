@@ -86,7 +86,7 @@ except Exception as e:
 
 try:
     st.markdown("**Boxplot of Sales by Product**")
-    fig = px.box(df, x='Product', y='Sales', color='Product', title='Boxplot of Sales by Product')
+    fig = px.box(df, x='Product', y='Sales', color='Product')
     fig.update_layout(
         xaxis_title='Product',
         yaxis_title='Sales'
@@ -98,7 +98,7 @@ except Exception as e:
 try:
     st.markdown("**Total Sales by Region**")
     total_sales_by_region = df.groupby('Region')['Sales'].sum().reset_index()
-    fig = px.bar(total_sales_by_region, x='Region', y='Sales', color='Region', title='Total Sales by Region')
+    fig = px.bar(total_sales_by_region, x='Region', y='Sales', color='Region')
     fig.update_layout(
         xaxis_title='Region',
         yaxis_title='Total Sales'
