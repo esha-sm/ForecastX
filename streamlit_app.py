@@ -8,8 +8,7 @@ import plotly.express as px
 st.title("Sales Forecasting App")
 st.write("This app forecasts sales using the ARIMA model.")
 st.write("You can predict sales for a minimum of 1 day and a maximum of 365 days.")
-st.write("Please upload a CSV file to proceed or select the checkbox to use the default dataset.")
-st.write("No CSV file? No problem! Just click the button to use the default file and enjoy the app.")
+st.markdown("<p style='color:red;'>Upload your own file, or if not, no problem! Just use the default dataset to enjoy the app.</p>", unsafe_allow_html=True)
 
 # Option to use default dataset or upload a file
 use_default = st.checkbox("Use default dataset")
@@ -33,7 +32,7 @@ else:
     else:
         st.stop()
 
-
+# Check if required columns are present
 required_columns = {'Date', 'Sales', 'Product', 'Region'}
 if not required_columns.issubset(df.columns):
     st.error(f"The dataset must contain the following columns: {', '.join(required_columns)}")
