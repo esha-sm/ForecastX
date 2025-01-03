@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 
-file_path = '/Users/esha/downloads/Random_Sales_Dataset.csv'  
+file_path = '/Users/esha/project/Random_Sales_Dataset.csv'  
 df = pd.read_csv(file_path)
 
 
