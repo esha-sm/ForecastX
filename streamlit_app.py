@@ -12,28 +12,20 @@ except Exception as e:
 
 df['Date'] = pd.to_datetime(df['Date'])
 
-# Ensure there are no missing values in the Sales column
+
 df = df.dropna(subset=['Sales'])
 
-# Debugging: Display the first few rows of the dataframe
-st.write("First few rows of the dataframe:")
-st.dataframe(df.head())
+model = ARIMA(df['Sales'], order=(5,1,0))
+model_fit = model.fit()
 
-# Fit the ARIMA model
-try:
-    model = ARIMA(df['Sales'], order=(5,1,0))
-    model_fit = model.fit()
-    st.success("ARIMA model fitted successfully!")
-except Exception as e:
-    st.error(f"An error occurred while fitting the ARIMA model: {str(e)}")
+st.title("Sales Forecasting App")
+st.write("This app forecasts sales using the ARIMA model.")
+st.write("You can predict sales for a minimum of 1 day and a maximum of 365 days.")
+st.markdown(f"<p style='font-size:20px; color:blue;'>Historical data range: {df['Date'].min().date()} to {df['Date'].max().date()}</p>", unsafe_allow_html=True)
 
-# Forecast the next 30 days
-try:
-    forecast = model_fit.forecast(steps=30)
-    forecast_df = pd.DataFrame(forecast, columns=['Forecast'])
-    st.success("Forecast generated successfully!")
-except Exception as e:
-    st.error(f"An error occurred while generating the forecast: {str(e)}")
+forecast = model_fit.forecast(steps=30)
+forecast_df = pd.DataFrame(forecast, columns=['Forecast'])
+
 
 # Debugging: Display the forecasted values
 st.write("Forecasted Sales for the Next 30 Days")
