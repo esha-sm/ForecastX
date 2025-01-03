@@ -27,11 +27,19 @@ forecast = model_fit.forecast(steps=30)
 forecast_df = pd.DataFrame(forecast, columns=['Forecast'])
 
 
-# Debugging: Display the forecasted values
+days = st.number_input("Enter number of days to forecast:", min_value=1, max_value=365, value=30)
+
+
+if st.button("Generate Forecast"):
+    forecast = model_fit.forecast(steps=days)
+    forecast_df = pd.DataFrame(forecast, columns=['Forecast'])
+
+
 st.write("Forecasted Sales for the Next 30 Days")
 st.dataframe(forecast_df)
 
-# Plot the forecasted values
+
+
 st.line_chart(forecast_df)
 
 # Additional visualizations
