@@ -32,7 +32,7 @@ else:
         st.info("Please upload a CSV file to proceed or select the checkbox to use the default dataset.")
         st.stop()
 
-# Check if required columns are present
+
 required_columns = {'Date', 'Sales', 'Product', 'Region'}
 if not required_columns.issubset(df.columns):
     st.error(f"The dataset must contain the following columns: {', '.join(required_columns)}")
