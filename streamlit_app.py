@@ -15,15 +15,27 @@ df['Date'] = pd.to_datetime(df['Date'])
 # Ensure there are no missing values in the Sales column
 df = df.dropna(subset=['Sales'])
 
+# Debugging: Display the first few rows of the dataframe
+st.write("First few rows of the dataframe:")
+st.dataframe(df.head())
+
 # Fit the ARIMA model
-model = ARIMA(df['Sales'], order=(5,1,0))
-model_fit = model.fit()
+try:
+    model = ARIMA(df['Sales'], order=(5,1,0))
+    model_fit = model.fit()
+    st.success("ARIMA model fitted successfully!")
+except Exception as e:
+    st.error(f"An error occurred while fitting the ARIMA model: {str(e)}")
 
 # Forecast the next 30 days
-forecast = model_fit.forecast(steps=30)
-forecast_df = pd.DataFrame(forecast, columns=['Forecast'])
+try:
+    forecast = model_fit.forecast(steps=30)
+    forecast_df = pd.DataFrame(forecast, columns=['Forecast'])
+    st.success("Forecast generated successfully!")
+except Exception as e:
+    st.error(f"An error occurred while generating the forecast: {str(e)}")
 
-# Display the forecasted values
+# Debugging: Display the forecasted values
 st.write("Forecasted Sales for the Next 30 Days")
 st.dataframe(forecast_df)
 
@@ -36,9 +48,8 @@ st.line_chart(df.set_index('Date')['Sales'])
 
 st.write("Boxplot of Sales by Product")
 fig, ax = plt.subplots()
-sns.boxplot(x='Product', y='Sales', data=df, palette="husl2", ax=ax)
+sns.boxplot(x='Product', y='Sales', data=df, palette="husl", ax=ax)
 st.pyplot(fig)
-
 
 st.write("Total Sales by Region")
 total_sales_by_region = df.groupby('Region')['Sales'].sum().reset_index()
