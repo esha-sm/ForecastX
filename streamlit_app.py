@@ -9,17 +9,33 @@ st.title("Sales Forecasting App")
 st.write("This app forecasts sales using the ARIMA model.")
 st.write("You can predict sales for a minimum of 1 day and a maximum of 365 days.")
 
-# File uploader for user to upload their own data
-uploaded_file = st.file_uploader("Upload your CSV file", type=["csv"])
+# Option to use default dataset or upload a file
+use_default = st.checkbox("Use default dataset")
 
-if uploaded_file is not None:
+if use_default:
     try:
-        df = pd.read_csv(uploaded_file)
-        st.success("Data loaded successfully!")
+        df = pd.read_csv('./Random_Sales_Dataset.csv')
+        st.success("Default data loaded successfully!")
     except Exception as e:
-        st.error(f"An error occurred while loading the data: {str(e)}")
+        st.error(f"An error occurred while loading the default data: {str(e)}")
 else:
-    st.info("Please upload a CSV file to proceed.")
+    # File uploader for user to upload their own data
+    uploaded_file = st.file_uploader("Upload your CSV file", type=["csv"])
+
+    if uploaded_file is not None:
+        try:
+            df = pd.read_csv(uploaded_file)
+            st.success("Data loaded successfully!")
+        except Exception as e:
+            st.error(f"An error occurred while loading the data: {str(e)}")
+    else:
+        st.info("Please upload a CSV file to proceed or select the checkbox to use the default dataset.")
+        st.stop()
+
+# Check if required columns are present
+required_columns = {'Date', 'Sales', 'Product', 'Region'}
+if not required_columns.issubset(df.columns):
+    st.error(f"The dataset must contain the following columns: {', '.join(required_columns)}")
     st.stop()
 
 try:
