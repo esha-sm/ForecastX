@@ -8,6 +8,8 @@ import plotly.express as px
 st.title("Sales Forecasting App")
 st.write("This app forecasts sales using the ARIMA model.")
 st.write("You can predict sales for a minimum of 1 day and a maximum of 365 days.")
+st.write("Please upload a CSV file to proceed or select the checkbox to use the default dataset.")
+st.write("No CSV file? No problem! Just click the button to use the default file and enjoy the app.")
 
 # Option to use default dataset or upload a file
 use_default = st.checkbox("Use default dataset")
@@ -29,7 +31,6 @@ else:
         except Exception as e:
             st.error(f"An error occurred while loading the data: {str(e)}")
     else:
-        st.info("Please upload a CSV file to proceed or select the checkbox to use the default dataset.")
         st.stop()
 
 
