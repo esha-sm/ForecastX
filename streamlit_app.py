@@ -4,7 +4,6 @@ from statsmodels.tsa.arima.model import ARIMA
 import matplotlib.pyplot as plt
 import seaborn as sns
 import plotly.express as px
-import plotly.graph_objects as go
 
 try:
     df = pd.read_csv('./Random_Sales_Dataset.csv')
