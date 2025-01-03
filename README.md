@@ -10,3 +10,12 @@ This is an interactive web application for forecasting sales data using the ARIM
 - **Error Handling**: Robust error handling for data loading, processing, and visualization.
 - **User Interaction**: Streamlit widgets for file upload, number input, and buttons.
 
+## How to Use
+
+1. **Clone the Repository**:
+   ```sh
+   git clone https://github.com/esha-sm/sales-forecasting-app.git
+   cd your-repository
+
+
+
