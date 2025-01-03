@@ -79,13 +79,13 @@ st.markdown("---")
 st.header("Additional Visualizations")
 
 try:
-    st.write("Historical Sales Data")
+    st.markdown("**Historical Sales Data**")
     st.line_chart(df.set_index('Date')['Sales'])
 except Exception as e:
     st.error(f"An error occurred while displaying historical sales data: {str(e)}")
 
 try:
-    st.write("Boxplot of Sales by Product")
+    st.markdown("**Boxplot of Sales by Product**")
     fig, ax = plt.subplots()
     sns.boxplot(x='Product', y='Sales', data=df, palette="husl", ax=ax)
     ax.set_xlabel("Product")
@@ -95,7 +95,7 @@ except Exception as e:
     st.error(f"An error occurred while displaying the boxplot: {str(e)}")
 
 try:
-    st.write("Total Sales by Region")
+    st.markdown("**Total Sales by Region**")
     total_sales_by_region = df.groupby('Region')['Sales'].sum().reset_index()
     fig, ax = plt.subplots()
     sns.barplot(x='Region', y='Sales', data=total_sales_by_region, palette="muted", ax=ax)
