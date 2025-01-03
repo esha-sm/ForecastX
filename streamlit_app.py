@@ -3,6 +3,7 @@ import pandas as pd
 from statsmodels.tsa.arima.model import ARIMA
 import matplotlib.pyplot as plt
 import seaborn as sns
+import plotly.express as px
 
 try:
     df = pd.read_csv('./Random_Sales_Dataset.csv')
@@ -13,7 +14,7 @@ except Exception as e:
 df['Date'] = pd.to_datetime(df['Date'])
 df = df.dropna(subset=['Sales'])
 
-# Fit ARIMA model
+
 model = ARIMA(df['Sales'], order=(5,1,0))
 model_fit = model.fit()
 
@@ -22,38 +23,72 @@ st.write("This app forecasts sales using the ARIMA model.")
 st.write("You can predict sales for a minimum of 1 day and a maximum of 365 days.")
 st.markdown(f"<p style='font-size:20px; color:blue;'>Historical data range: {df['Date'].min().date()} to {df['Date'].max().date()}</p>", unsafe_allow_html=True)
 
-# Input for forecast days
+
 days = st.number_input("Enter number of days to forecast:", min_value=1, max_value=365, value=30)
 
 if st.button("Generate Forecast"):
-    # Generate forecast for the specified number of days
+    
     forecast = model_fit.forecast(steps=days)
     
-    # Create date range for forecast
+    
     last_date = df['Date'].max()
     forecast_dates = pd.date_range(start=last_date + pd.Timedelta(days=1), periods=days)
     
-    # Create forecast DataFrame with dates
+    
     forecast_df = pd.DataFrame({
         'Date': forecast_dates,
         'Forecast': forecast
     })
     
-    st.write(f"Forecasted Sales for the Next {days} Days")
-    st.dataframe(forecast_df.set_index('Date'))
     
-    # Plot forecast
-    fig, ax = plt.subplots(figsize=(10, 6))
-    ax.plot(df['Date'], df['Sales'], label='Historical Sales', alpha=0.7)
-    ax.plot(forecast_dates, forecast, label='Forecast', color='red')
-    ax.set_title('Sales Forecast')
-    ax.set_xlabel('Date')
-    ax.set_ylabel('Sales')
-    ax.legend()
-    plt.xticks(rotation=45)
-    st.pyplot(fig)
+    forecast_df['Date'] = forecast_df['Date'].dt.strftime('%Y-%m-%d')
+    
+    st.write(f"Forecasted Sales for the Next {days} Days")
+    
+    
+    def color_code(val):
+        if val > forecast_df['Forecast'].mean():
+            return 'background-color: lightgreen'
+        else:
+            return 'background-color: lightcoral'
+    
+    st.dataframe(forecast_df.style.applymap(color_code, subset=['Forecast']))
+    
+    
+    fig = px.line(
+        title='Sales Forecast',
+        template='plotly_white'
+    )
+    
+    
+    fig.add_scatter(
+        x=df['Date'],
+        y=df['Sales'],
+        name='Historical Sales',
+        line=dict(color='blue')
+    )
+    
+    
+    fig.add_scatter(
+        x=forecast_dates,
+        y=forecast,
+        name='Forecast',
+        line=dict(color='red')
+    )
+    
+    fig.update_layout(
+        xaxis_title="Date",
+        yaxis_title="Sales",
+        hovermode='x unified'
+    )
+    
+    st.plotly_chart(fig)
 
-# Original visualizations
+
+st.markdown("## Additional Visualizations")
+st.markdown("---")
+
+
 st.write("Historical Sales Data")
 st.line_chart(df.set_index('Date')['Sales'])
 
