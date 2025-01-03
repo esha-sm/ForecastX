@@ -67,6 +67,10 @@ if st.button("Generate Forecast"):
             name='Forecast',
             line=dict(color='red')
         )
+        fig.update_layout(
+            xaxis_title='Date',
+            yaxis_title='Sales'
+        )
         st.plotly_chart(fig)
     except Exception as e:
         st.error(f"An error occurred while generating the forecast: {str(e)}")
@@ -84,6 +88,8 @@ try:
     st.write("Boxplot of Sales by Product")
     fig, ax = plt.subplots()
     sns.boxplot(x='Product', y='Sales', data=df, palette="husl", ax=ax)
+    ax.set_xlabel("Product")
+    ax.set_ylabel("Sales")
     st.pyplot(fig)
 except Exception as e:
     st.error(f"An error occurred while displaying the boxplot: {str(e)}")
