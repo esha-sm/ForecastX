@@ -38,6 +38,10 @@ st.dataframe(df.head())
 
 # Allow users to select columns for analysis
 columns = df.columns.tolist()
+if len(columns) < 2:
+    st.error("The dataset must contain at least two columns.")
+    st.stop()
+
 date_column = st.selectbox("Select the date column", columns)
 value_column = st.selectbox("Select the value column to forecast", columns)
 
@@ -58,6 +62,7 @@ try:
     df[date_column] = pd.to_datetime(df[date_column])
 except Exception as e:
     st.error(f"An error occurred while processing the date column: {str(e)}")
+    st.stop()
 
 try:
     model = ARIMA(df[value_column], order=(5,1,0))
@@ -65,6 +70,7 @@ try:
     st.success("ARIMA model fitted successfully!")
 except Exception as e:
     st.error(f"An error occurred while fitting the ARIMA model: {str(e)}")
+    st.stop()
 
 st.markdown(f"<p style='font-size:20px; color:blue;'>Historical data range: {df[date_column].min().date()} to {df[date_column].max().date()}</p>", unsafe_allow_html=True)
 
