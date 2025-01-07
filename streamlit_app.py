@@ -36,6 +36,14 @@ st.markdown("""
     .stMarkdown p {
         color: #666;
     }
+    .stAlert {
+        background-color: #f5f5f5;
+        border-left: 5px solid #4CAF50;
+        color: #333;
+    }
+    .stAlert p {
+        color: #333;
+    }
     </style>
 """, unsafe_allow_html=True)
 
