@@ -4,10 +4,45 @@ from statsmodels.tsa.arima.model import ARIMA
 import plotly.express as px
 import numpy as np
 
+# Custom CSS for professional tone
+st.markdown("""
+    <style>
+    body {
+        font-family: 'Arial', sans-serif;
+        color: #333;
+    }
+    .stApp {
+        background-color: #f5f5f5;
+    }
+    .stButton>button {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 4px;
+    }
+    .stButton>button:hover {
+        background-color: #45a049;
+    }
+    .stMarkdown h1, .stMarkdown h2, .stMarkdown h3, .stMarkdown h4, .stMarkdown h5, .stMarkdown h6 {
+        color: #333;
+    }
+    .stMarkdown p {
+        color: #666;
+    }
+    </style>
+""", unsafe_allow_html=True)
+
 st.title("ForecastX")
-st.write("This app forecasts data using the ARIMA model.")
+st.write("This app forecasts data using various models.")
 st.write("You can predict values for a minimum of 1 day and a maximum of 365 days.")
-st.markdown("<p style='color:red;'>Upload your own file, or if not, no problem! Just use the default dataset to enjoy the app.</p>", unsafe_allow_html=True)
+st.markdown("<p style='color:#333;'>Upload your own file, or if not, no problem! Just use the default dataset to enjoy the app.</p>", unsafe_allow_html=True)
 
 # Initialize data state
 data_loaded = False
@@ -26,10 +61,13 @@ if use_default:
         st.error(f"An error occurred while loading the default data: {str(e)}")
 else:
     # Handle file upload
-    uploaded_file = st.file_uploader("Upload your CSV file", type=["csv"])
+    uploaded_file = st.file_uploader("Upload your file", type=["csv", "xlsx"])
     if uploaded_file is not None:
         try:
-            df = pd.read_csv(uploaded_file)
+            if uploaded_file.name.endswith('.csv'):
+                df = pd.read_csv(uploaded_file)
+            elif uploaded_file.name.endswith('.xlsx'):
+                df = pd.read_excel(uploaded_file)
             st.success("Data loaded successfully!")
             data_loaded = True
         except Exception as e:
@@ -37,7 +75,7 @@ else:
 
 # Early exit if no data
 if not data_loaded:
-    st.warning("Please upload a CSV file or use the default dataset to continue.")
+    st.warning("Please upload a file or use the default dataset to continue.")
     st.stop()
 
 # Only show the rest of the app if data is loaded
@@ -123,7 +161,7 @@ if data_loaded and df is not None:
         st.stop()
 
     # Display date range
-    st.markdown(f"<p style='font-size:20px; color:blue;'>Historical data range: {df.index.min().date()} to {df.index.max().date()}</p>", unsafe_allow_html=True)
+    st.markdown(f"<p style='font-size:20px; color:#333;'>Historical data range: {df.index.min().date()} to {df.index.max().date()}</p>", unsafe_allow_html=True)
 
     # Forecast section
     days = st.number_input("Enter number of days to forecast:", min_value=1, max_value=365, value=30)
