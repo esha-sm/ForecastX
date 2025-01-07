@@ -4,7 +4,7 @@ from statsmodels.tsa.arima.model import ARIMA
 import plotly.express as px
 import numpy as np
 
-st.title("Data Forecasting App")
+st.title("ForecastX")
 st.write("This app forecasts data using the ARIMA model.")
 st.write("You can predict values for a minimum of 1 day and a maximum of 365 days.")
 st.markdown("<p style='color:red;'>Upload your own file, or if not, no problem! Just use the default dataset to enjoy the app.</p>", unsafe_allow_html=True)
