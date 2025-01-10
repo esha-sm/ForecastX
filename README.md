@@ -1,4 +1,4 @@
- :chart_with_upwards_trend:## Sales Forecasting App
+## Sales Forecasting App
 
 This is an interactive web application for forecasting sales data using the ARIMA model. Users can upload their own CSV files or use a default dataset to generate forecasts and visualizations.
 
