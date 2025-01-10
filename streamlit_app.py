@@ -122,8 +122,13 @@ if data_loaded and df is not None:
         st.stop()
 
     # Date range selection
-    min_date = df[date_column].min().date()
-    max_date = df[date_column].max().date()
+    try:
+        min_date = df[date_column].min().date()
+        max_date = df[date_column].max().date()
+    except Exception as e:
+        st.error(f"Error calculating date range: {str(e)}")
+        st.stop()
+
     start_date = st.date_input("Start date", min_date, min_value=min_date, max_value=max_date)
     end_date = st.date_input("End date", max_date, min_value=min_date, max_value=max_date)
 
