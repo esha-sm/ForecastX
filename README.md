@@ -12,10 +12,10 @@ This is an interactive web application for forecasting sales data using the ARIM
 
 ## How to Use
 
-1. **Clone the Repository**:
+1. Clone the repository:
    ```sh
-   git clone https://github.com/esha-sm/sales-forecasting-app.git
-   cd sales-forecasting-app
+   git clone <your-repo-url>
+   cd forecastx
 
 
 
