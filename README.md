@@ -1,21 +1,56 @@
-## ForecastX
+ForecastX – Self-Serve Sales Forecasting Tool
 
-This is an interactive web application for forecasting sales data using the ARIMA model. Users can upload their own CSV files or use a default dataset to generate forecasts and visualizations.
+ForecastX is a lightweight web application that allows users to upload historical sales data and generate model-driven revenue projections without needing in-house data science expertise.
 
-## Features
+Why I Built This
 
-- **Data Loading and Processing**: Read CSV files, handle missing data, and convert date columns.
-- **Data Visualization**: Create interactive plots using Plotly (line charts, box plots, bar charts) and Seaborn.
-- **Time Series Forecasting**: Implement ARIMA models for forecasting sales data.
-- **Error Handling**: Robust error handling for data loading, processing, and visualization.
-- **User Interaction**: Streamlit widgets for file upload, number input, and buttons.
+Many small businesses rely on manual spreadsheets for forecasting, which limits accuracy and scalability. I built ForecastX to streamline forecasting into a guided workflow that automates preprocessing, model selection, and visualization — turning raw CSV data into actionable projections in minutes.
 
-## How to Use
+Core Features
 
-1. Clone the repository:
-   ```sh
-   git clone <your-repo-url>
-   cd forecastx
+CSV upload or default dataset
 
+Automated preprocessing (date parsing, missing value handling)
+
+ARIMA-based time series forecasting
+
+Interactive visualizations (Plotly)
+
+Forecast horizon customization
+
+Exportable predictions
+
+Robust error handling
+
+Tech Stack
+
+Python
+Streamlit
+Statsmodels (ARIMA)
+Scikit-learn
+Plotly
+Pandas
+
+How to Run
+pip install -r requirements.txt
+streamlit run streamlit_app.py
+
+Design Considerations
+
+Built modular components (visualization.py, app.py) for separation of concerns
+
+Focused on usability for non-technical users
+
+Prioritized preprocessing reliability to handle messy real-world data
+
+Designed for extensibility (additional forecasting models can be added easily)
+
+Future Improvements
+
+Add model comparison (Prophet, XGBoost)
+
+Deploy live demo
+
+Integrate automated hyperparameter tuning
 
 
