@@ -1,4 +1,8 @@
 # ForecastX – Self-Serve Sales Forecasting Tool
+## Live Demo
+
+👉 https://forecastx.streamlit.app/
+
 
 ForecastX is a lightweight web application that allows users to upload historical sales data and generate forecasts through a guided modeling workflow.
 
