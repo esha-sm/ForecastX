@@ -4,7 +4,7 @@
 
 # ForecastX – Self-Serve Sales Forecasting Tool
 
-ForecastX is a lightweight web application that allows users to upload historical sales data and generate forecasts through a guided modeling workflow.
+ForecastX is a Streamlit-based sales forecasting application that runs ARIMA time-series models on a default dataset and visualizes projections interactively.
 
 ## Why I Built This
 
