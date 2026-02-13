@@ -1,10 +1,10 @@
 # ForecastX – Self-Serve Sales Forecasting Tool
 
-ForecastX is a lightweight web application that allows users to upload historical sales data and generate model-driven revenue projections without needing in-house data science expertise.
+ForecastX is a lightweight web application that allows users to upload historical sales data and generate forecasts through a guided modeling workflow.
 
 ## Why I Built This
 
-Many small businesses rely on manual spreadsheets for forecasting, which limits accuracy and scalability. I built ForecastX to streamline forecasting into a guided workflow that automates preprocessing, model selection, and visualization — turning raw CSV data into actionable projections in minutes.
+I wanted to understand how forecasting tools are structured end-to-end, so I built a web app that handles data cleaning, model fitting, and visualization in one workflow.
 
 ## Core Features
 
@@ -14,7 +14,7 @@ Many small businesses rely on manual spreadsheets for forecasting, which limits 
 - Interactive visualizations (Plotly)  
 - Forecast horizon customization  
 - Exportable predictions  
-- Robust error handling  
+- error handling  
 
 ## Tech Stack
 
