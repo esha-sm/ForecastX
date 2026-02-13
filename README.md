@@ -8,7 +8,7 @@ I wanted to understand how forecasting tools are structured end-to-end, so I bui
 
 ## Core Features
 
-- CSV upload or default dataset  
+- Default dataset  
 - Automated preprocessing (date parsing, missing value handling)  
 - ARIMA-based time series forecasting  
 - Interactive visualizations (Plotly)  
